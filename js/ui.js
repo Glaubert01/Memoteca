@@ -19,6 +19,9 @@ const ui = {
     listaPensamentos.innerHTML = ""
 
     try {
+      if(listaPensamentos === "") {
+        
+      }
       const pensamentos = await api.buscarPensamentos()
       pensamentos.forEach(ui.adicionarPensamentoNaLista)
     }
