@@ -1,14 +1,14 @@
+
 import api from "./api.js"
 
 const ui = {
 
-    async preencherFormulario(pensamentoId){
-        const pensamento = await api.buscarPensamentoPorId(pensamentoId)
-        document.getElementById("pensamento-id").value = pensamento.id
-        document.getElementById("pensamento-conteudo").value = pensamento.conteudo
-        document.getElementById("pensamento-autoria").value = pensamento.autoria
-    },
-      
+  async preencherFormulario(pensamentoId) {
+    const pensamento = await api.buscarPensamentoPorId(pensamentoId)
+    document.getElementById("pensamento-id").value = pensamento.id
+    document.getElementById("pensamento-conteudo").value = pensamento.conteudo
+    document.getElementById("pensamento-autoria").value = pensamento.autoria
+  },
 
   limparFormulario() {
     document.getElementById("pensamento-form").reset();
@@ -16,18 +16,17 @@ const ui = {
   
   async renderizarPensamentos() {
     const listaPensamentos = document.getElementById("lista-pensamentos")
-    const mensagemVazia = document.getElementById("mensagem-vazia");
+    const mensagemVazia = document.getElementById("mensagem-vazia")
     listaPensamentos.innerHTML = ""
 
     try {
       const pensamentos = await api.buscarPensamentos()
-      pensamentos.forEach(ui.adicionarPensamentoNaLista)
       if (pensamentos.length === 0) {
-        mensagemVazia.style.display = "block";
+        mensagemVazia.style.display = "block"
       } else {
-        mensagemVazia.style.display = "none";
+        mensagemVazia.style.display = "none"
         pensamentos.forEach(ui.adicionarPensamentoNaLista)
-      }  
+      } 
     }
     catch {
       alert('Erro ao renderizar pensamentos')
@@ -59,7 +58,7 @@ const ui = {
 
     const iconeEditar = document.createElement("img")
     iconeEditar.src = "assets/imagens/icone-editar.png"
-    iconeEditar.alt = "Ícone de editar"
+    iconeEditar.alt = "Editar"
     botaoEditar.appendChild(iconeEditar)
 
     const botaoExcluir = document.createElement("button")
@@ -68,15 +67,14 @@ const ui = {
       try {
         await api.excluirPensamento(pensamento.id)
         ui.renderizarPensamentos()
-      }
-      catch {
-        alert("Erro ao excluir pensamento")
+      } catch (error) {
+        alert("Erro ao excluir pensamnto")
       }
     }
-      
+
     const iconeExcluir = document.createElement("img")
     iconeExcluir.src = "assets/imagens/icone-excluir.png"
-    iconeExcluir.alt = "Ícone de excluir"
+    iconeExcluir.alt = "Excluir"
     botaoExcluir.appendChild(iconeExcluir)
 
     const icones = document.createElement("div")
